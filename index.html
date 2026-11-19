@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 理想 STEM 綠色校園設計師</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'PingFang HK', 'Microsoft JhengHei', sans-serif;
+            background-color: #e6f7ff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #005A9C;
+            text-shadow: 1px 1px 2px #fff;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .panel {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .left-panel {
+            flex: 1;
+            min-width: 250px;
+        }
+        .center-panel {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            min-width: 300px;
+        }
+        .right-panel {
+            flex: 1;
+            min-width: 250px;
+        }
+        h3 {
+            margin-top: 0;
+            color: #ff6600;
+            border-bottom: 2px dashed #ffb380;
+            padding-bottom: 5px;
+        }
+        .item-btn {
+            display: inline-block;
+            background: #f0f8ff;
+            border: 2px solid #b3d9ff;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+            user-select: none;
+            font-size: 14px;
+        }
+        .item-btn:hover {
+            background: #b3d9ff;
+            transform: scale(1.05);
+        }
+        .campus-area {
+            background: #eef9e8;
+            border: 3px solid #8fbc8f;
+            border-radius: 10px;
+            flex-grow: 1;
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+        }
+        .placed-item {
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            animation: popIn 0.3s ease;
+            position: absolute;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+        }
+        .placed-item:active {
+            cursor: grabbing;
+        }
+        .placed-item .remove-btn {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+        }
+        .placed-item:hover .remove-btn {
+            display: block;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+        .stat-bar {
+            width: 100%;
+            background: #ddd;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            height: 20px;
+        }
+        .stat-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+        .energy-fill { background: #ffcc00; }
+        .green-fill { background: #33cc33; }
+        .comfort-fill { background: #3399ff; }
+        .teacher-box {
+            background: #fff3e0;
+            border: 2px solid #ffcc80;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .teacher-avatar {
+            font-size: 40px;
+        }
+        .action-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .action-btn:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🏫 我的理想 STEM 綠色校園設計師 🌳</h1>
+
+    <div class="container">
+        <div class="panel left-panel">
+            <h3>第一步：加入基本設施</h3>
+            <div class="item-btn" onclick="addItem('禮堂', '🏛️', 10, -15, 20, false)">🏛️ 禮堂</div>
+            <div class="item-btn" onclick="addItem('課室', '🏫', 0, -10, 15, false)">🏫 課室</div>
+            <div class="item-btn" onclick="addItem('籃球場', '🏀', 5, -5, 25, false)">🏀 籃球場</div>
+            <div class="item-btn" onclick="addItem('花圃', '🌷', 30, 0, 15, false)">🌷 綠化花圃</div>
+            <div class="item-btn" onclick="addItem('遊戲設施', '🎡🎠', 0, 0, 30, false)">🎡🎠 遊戲設施</div>
+
+            <h3>第二步：加入STEM裝置</h3>
+            <div class="item-btn" onclick="addItem('隔熱窗貼/塗層', '🛡️', 5, 20, 10, true)">🛡️ 隔熱裝置</div>
+            <div class="item-btn" onclick="addItem('太陽能板', '☀️', 10, 30, 0, true)">☀️ 太陽能板</div>
+            <div class="item-btn" onclick="addItem('智能感應燈', '💡', 0, 15, 5, true)">💡 智能感應燈</div>
+            <div class="item-btn" onclick="addItem('雨水收集系統', '🌧️', 20, 10, 0, true)">🌧️ 雨水收集系統</div>
+        </div>
+
+        <div class="panel center-panel">
+            <h3>你的校園藍圖 (點擊左側加入)</h3>
+            <div class="campus-area" id="campus-area"></div>
+            <button class="action-btn" onclick="evaluateDesign()">🤖 讓 AI 老師評估設計</button>
+        </div>
+
+        <div class="panel right-panel">
+            <h3>校園效能指數</h3>
+            <label>環保綠化指數 🌳</label>
+            <div class="stat-bar"><div class="stat-fill green-fill" id="bar-green"></div></div>
+            
+            <label>節能減碳指數 ⚡</label>
+            <div class="stat-bar"><div class="stat-fill energy-fill" id="bar-energy"></div></div>
+            
+            <label>師生舒適度 😊</label>
+            <div class="stat-bar"><div class="stat-fill comfort-fill" id="bar-comfort"></div></div>
+
+            <div class="teacher-box">
+                <div class="teacher-avatar">👩‍🏫</div>
+                <div id="ai-feedback">
+                    歡迎來到設計室！試試把不同的設施和 STEM 裝置放入校園，然後讓我來為你評估吧！
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let campusItems = [];
+        let scores = { green: 20, energy: 50, comfort: 20 }; 
+
+        function updateBars() {
+            const clamp = (num) => Math.max(0, Math.min(100, num));
+            document.getElementById('bar-green').style.width = clamp(scores.green) + '%';
+            document.getElementById('bar-energy').style.width = clamp(scores.energy) + '%';
+            document.getElementById('bar-comfort').style.width = clamp(scores.comfort) + '%';
+        }
+
+        function addItem(name, icon, g, e, c, isStem) {
+            if (!isStem) {
+                let basicCount = campusItems.filter(item => !item.isStem).length;
+                if (basicCount >= 15) {
+                    document.getElementById('ai-feedback').innerHTML = "<b>⚠️ 注意：</b>校園空間有限，不能再加入基本設施啦！請先移除一些設施。STEM 裝置則不限數量喔！";
+                    return;
+                }
+            }
+            
+            const area = document.getElementById('campus-area');
+            const areaWidth = area.clientWidth || 300;
+            const areaHeight = area.clientHeight || 400;
+            // 隨機生成初始位置
+            const x = Math.max(10, Math.floor(Math.random() * (areaWidth - 60)));
+            const y = Math.max(10, Math.floor(Math.random() * (areaHeight - 60)));
+
+            let item = { id: Date.now(), name, icon, g, e, c, x, y, isStem };
+            campusItems.push(item);
+            scores.green += g;
+            scores.energy += e;
+            scores.comfort += c;
+            renderCampus();
+            updateBars();
+            document.getElementById('ai-feedback').innerText = `加入了 ${name}！繼續設計吧！`;
+        }
+
+        function removeItem(id) {
+            let index = campusItems.findIndex(i => i.id === id);
+            if (index > -1) {
+                let item = campusItems[index];
+                scores.green -= item.g;
+                scores.energy -= item.e;
+                scores.comfort -= item.c;
+                campusItems.splice(index, 1);
+                renderCampus();
+                updateBars();
+                document.getElementById('ai-feedback').innerText = `移除了 ${item.name}。`;
+            }
+        }
+
+        function renderCampus() {
+            const area = document.getElementById('campus-area');
+            area.innerHTML = '';
+            campusItems.forEach(item => {
+                let div = document.createElement('div');
+                div.className = 'placed-item';
+                div.title = item.name;
+                div.style.left = item.x + 'px';
+                div.style.top = item.y + 'px';
+                div.innerHTML = `${item.icon} <button class="remove-btn" onclick="removeItem(${item.id})">X</button>`;
+                
+                // 加入拖曳事件監聽器
+                div.onmousedown = (e) => startDrag(e, item, div);
+                div.ontouchstart = (e) => startDrag(e.touches[0], item, div);
+
+                area.appendChild(div);
+            });
+        }
+
+        // 拖曳 (Drag and Drop) 邏輯
+        let isDragging = false;
+        let startX, startY, initialX, initialY, currentElement, currentItem;
+
+        function startDrag(e, item, element) {
+            // 如果點擊的是移除按鈕，則不觸發拖曳
+            if (e.target.classList.contains('remove-btn')) return; 
+            
+            isDragging = true;
+            currentItem = item;
+            currentElement = element;
+            startX = e.clientX;
+            startY = e.clientY;
+            initialX = item.x;
+            initialY = item.y;
+
+            // 確保拖曳的元素在最上層
+            document.querySelectorAll('.placed-item').forEach(el => el.style.zIndex = '1');
+            element.style.zIndex = '10';
+
+            document.onmousemove = (ev) => drag(ev);
+            document.onmouseup = endDrag;
+            document.ontouchmove = (ev) => drag(ev.touches[0]);
+            document.ontouchend = endDrag;
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            // 防止行動裝置預設滑動行為
+            if(e.preventDefault) e.preventDefault(); 
+            
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            let newX = initialX + dx;
+            let newY = initialY + dy;
+
+            // 限制物品不能拖出校園藍圖範圍
+            const area = document.getElementById('campus-area');
+            const maxX = area.clientWidth - currentElement.offsetWidth;
+            const maxY = area.clientHeight - currentElement.offsetHeight;
+
+            newX = Math.max(0, Math.min(newX, maxX));
+            newY = Math.max(0, Math.min(newY, maxY));
+
+            currentElement.style.left = newX + 'px';
+            currentElement.style.top = newY + 'px';
+            currentItem.x = newX;
+            currentItem.y = newY;
+        }
+
+        function endDrag() {
+            isDragging = false;
+            document.onmousemove = null;
+            document.onmouseup = null;
+            document.ontouchmove = null;
+            document.ontouchend = null;
+        }
+
+        function evaluateDesign() {
+            const feedback = document.getElementById('ai-feedback');
+            let hasClassroom = campusItems.some(i => i.name === '課室');
+            let hasInsulation = campusItems.some(i => i.name === '隔熱窗貼/塗層');
+            
+            if (campusItems.length === 0) {
+                feedback.innerText = "校園空空如也呢！請先加入一些設施吧！";
+                return;
+            }
+            if (!hasClassroom) {
+                feedback.innerText = "學校怎麼可以沒有課室呢？請先加入課室！";
+                return;
+            }
+            if (scores.energy < 30) {
+                feedback.innerHTML = "<b>AI 建議：</b> 耗電量太高了！試試加入「太陽能板」或「隔熱裝置」來節省冷氣用電吧！";
+            } else if (scores.comfort < 40) {
+                feedback.innerHTML = "<b>AI 建議：</b> 同學覺得學校有點悶。加入「遊戲設施」或「花圃」可以提升舒適度喔！";
+            } else if (hasClassroom && !hasInsulation) {
+                feedback.innerHTML = "<b>AI 發現：</b> 課室夏天會很熱！加上「隔熱裝置」能讓同學舒服又省電費！";
+            } else if (scores.green > 70 && scores.energy > 70 && scores.comfort > 70) {
+                feedback.innerHTML = "<b>🌟 AI 極高評價：</b> 太棒了！你的設計完美平衡了學習需要、環境綠化和 STEM 節能科技！";
+            } else {
+                feedback.innerHTML = "<b>AI 建議：</b> 設計不錯！繼續嘗試配搭不同的 STEM 裝置，把三項指數都提升到滿分吧！";
+            }
+        }
+        updateBars();
+    </script>
+</body>
+</html>
